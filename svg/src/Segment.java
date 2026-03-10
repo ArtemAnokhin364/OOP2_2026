@@ -1,5 +1,11 @@
 public class Segment {
-    public Point a, b;
+    private Point a, b;
+
+    public Segment(Point a, Point b) {
+        // używamy konstruktora kopiującego Point
+        this.a = new Point(a);
+        this.b = new Point(b);
+    }
 
     public double length() {
         double dx = b.getX() - a.getX();
