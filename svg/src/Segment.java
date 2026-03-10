@@ -2,8 +2,8 @@ public class Segment {
     public Point a, b;
 
     public double length() {
-        double dx = b.x - a.x;
-        double dy = b.y - a.y;
+        double dx = b.getX() - a.getX();
+        double dy = b.getY() - a.getY();
         return Math.sqrt(dx*dx + dy*dy);
     }
 
@@ -16,8 +16,8 @@ public class Segment {
     }
 
     public String toSvg() {
-        return "<line x1=\"" + a.x + "\" y1=\""+ a.y + "\"" +
-                " x2=\"" + b.x + "\" y2=\"" + b.y + "\"" +
+        return "<line x1=\"" + a.getX() + "\" y1=\""+ a.getY() + "\"" +
+                " x2=\"" + b.getX() + "\" y2=\"" + b.getY() + "\"" +
                 " style=\"stroke:red;stroke-width:2\" />";
     }
 
