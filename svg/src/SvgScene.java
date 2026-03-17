@@ -2,6 +2,24 @@ public class SvgScene {
     private Polygon[] polygons;
     private int i;  // index pod który wstawić kolejny obiekt
 
+
+
+    private BoundingBox boundingBox() {
+        double minWidth = 0;
+        double minHeight = 0;
+        for (Polygon poly : polygons) {
+            if (poly == null) continue;
+
+            BoundingBox bb = poly.boundingBox();
+            double width = bb.x() + bb.width();
+            if (width > minWidth) minWidth = width;
+            double height = bb.y() + bb.height();
+            if (height > minHeight) minHeight = height;
+        }
+
+        return new BoundingBox(0, 0, minWidth, minHeight);
+    }
+
     public SvgScene() {
         polygons = new Polygon[3];
         i = 0;
