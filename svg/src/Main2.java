@@ -25,11 +25,12 @@ public class Main2 {
                 new Point(160, 160),
                 new Point(120, 160)
         }));
+        Style myStyle = new Style("red", "green", 3);
         scene.addPolygon(new Polygon(new Point[] {
                 new Point(10, 100),
                 new Point(20, 200),
                 new Point(80, 160)
-        }));
+        }, myStyle));
 
         System.out.println(scene.toSvg());
         scene.save("obrazek.svg");
