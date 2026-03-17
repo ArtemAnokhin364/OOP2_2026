@@ -49,6 +49,6 @@ public class Polygon {
 
         return String.format("<polygon points=\"%s\" " +
                 "style=\"%s\" />",
-                pointsString);
+                pointsString, style.toSvg());
     }
 }
