@@ -5,6 +5,16 @@ public class Polygon {
     private Point[] points;
     private Style style;
 
+    // metoda wytwórcza: statyczna metoda zwracająca utworzony obiekt
+    // nie jest to konstruktor
+    public static Polygon square(Segment seg, Style style) {
+        Segment perp = seg.perpendicular();
+
+        return new Polygon(new Point[] {
+                seg.getA(), perp.getA(), seg.getB(), perp.getB()
+            }, style);
+    }
+
     public BoundingBox boundingBox() {
         Point p0 = new Point(points[0]);    // lewy górny
         Point p1 = new Point(points[0]);    // prawy dolny

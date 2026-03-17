@@ -32,6 +32,14 @@ public class Main2 {
                 new Point(80, 160)
         }, myStyle));
 
+        Polygon square = Polygon.square(
+                new Segment(
+                        new Point(10, 10),
+                        new Point(80, 80)
+                ), myStyle
+        );
+        scene.addPolygon(square);
+
         System.out.println(scene.toSvg());
         scene.save("obrazek.svg");
     }
