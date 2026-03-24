@@ -19,4 +19,14 @@ public class Ellipse extends Shape{
                 rx, ry, center.getX(), center.getY(), style.toSvg()
         );
     }
+
+    @Override
+    public BoundingBox boundingBox() {
+        return new BoundingBox(
+                center.getX() - rx,
+                center.getY() - ry,
+                2*rx,
+                2*ry
+        );
+    }
 }

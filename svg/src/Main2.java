@@ -19,14 +19,14 @@ public class Main2 {
 
         // SVG scene
         SvgScene scene = new SvgScene();
-        scene.addPolygon(poly);
-        scene.addPolygon(new Polygon(new Point[] {
+        scene.addShape(poly);
+        scene.addShape(new Polygon(new Point[] {
                 new Point(120, 120),
                 new Point(160, 160),
                 new Point(120, 160)
         }));
         Style myStyle = new Style("red", "green", 3);
-        scene.addPolygon(new Polygon(new Point[] {
+        scene.addShape(new Polygon(new Point[] {
                 new Point(10, 100),
                 new Point(20, 200),
                 new Point(80, 160)
@@ -38,7 +38,9 @@ public class Main2 {
                         new Point(80, 80)
                 ), myStyle
         );
-        scene.addPolygon(square);
+        scene.addShape(square);
+        Ellipse ellipse = new Ellipse(new Point(120, 120), 20, 50, myStyle);
+        scene.addShape(ellipse);
 
         System.out.println(scene.toSvg());
         scene.save("obrazek.svg");
