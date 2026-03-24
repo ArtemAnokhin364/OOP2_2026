@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
 
-public class SvgScene {
+public class SvgScene implements Svg{
     // tablica, korzystając z polimorfizmu, będzie mogła przechowywać obiekty
     // typu Ellipse oraz Polygon
     private Shape[] shapes;
