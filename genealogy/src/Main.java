@@ -31,5 +31,14 @@ public class Main {
         System.out.println("Najmłodze dziecko to: " + youngest);
 
         System.out.println("dzieci Adama: " + personList.get(0).getChildren());
+
+        Family fam = new Family();
+        fam.add(personList.get(0));
+        fam.add(personList.get(1));
+        fam.add(personList.get(2));
+
+        System.out.println("'Adam Kowalski' w fam: " + fam.get("Adam Kowalski"));
+        System.out.println("'Anna Kowalska' w fam: " + fam.get("Anna Kowalska"));
+        System.out.println("'Nie Ma' w fam: " + fam.get("Nie Ma"));
     }
 }
