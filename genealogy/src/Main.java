@@ -2,6 +2,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        // TODO: zadanie 6 "Pliki, wyjątki"
         List<Person> loaded = Person.fromCsv("family.csv");
         Person.toBinaryFile("osoby.data", loaded);
         List<Person> fromBinary = Person.fromBinaryFile("osoby.data");
