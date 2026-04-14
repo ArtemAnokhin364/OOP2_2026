@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -9,5 +7,7 @@ public class Main {
         for (Person p : loaded) {
             System.out.println(p);
         }
+
+        Person.fromCsvLine("Marek Kowalski,15.05.1899,25.06.1857,,");
     }
 }

@@ -75,13 +75,16 @@ public class Person implements Comparable<Person> {
         return this.date.getYear() - other.date.getYear();
     }
 
-    public static Person fromCsvLine(String line){
+    public static Person fromCsvLine(String line) {
         String[] elements = line.split(",", -1);
         String[] name = elements[0].split(" ", 2);
         LocalDate birth = LocalDate.parse(elements[1], DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         LocalDate deth = null;
         if (!elements[2].isEmpty()) {
             deth = LocalDate.parse(elements[2], DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            if (deth.isBefore(birth)) {
+                throw new NegativeLifespanException(birth, deth);
+            }
         }
         Person created = new Person(name[0], name[1], birth, deth);
         return  created;
@@ -95,6 +98,12 @@ public class Person implements Comparable<Person> {
             while ((line = reader.readLine()) != null) {
                 //System.out.println("wczytana linia: " + line);
                 Person parsed = fromCsvLine(line);
+                for(Person existing : personList) {
+                    if(existing.getName().equals(parsed.getName()) &&
+                       existing.getSurname().equals(parsed.getSurname())) {
+                        throw new AmbiguousPersonException(existing);
+                    }
+                }
                 personList.add(parsed);
             }
         } catch (IOException e) {
