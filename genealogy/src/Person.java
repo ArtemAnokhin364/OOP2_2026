@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ public class Person implements Comparable<Person> {
     private String name;
     private String surname;
     private LocalDate date;
+    private LocalDate deth;
 
     public List<Person> getChildren(){
 //        List<Person> resultList = new ArrayList<>();
@@ -28,11 +30,12 @@ public class Person implements Comparable<Person> {
         return surname;
     }
 
-    public Person(String name, String surname, LocalDate date){
+    public Person(String name, String surname, LocalDate date, LocalDate deth){
         this.name = name;
         this.surname = surname;
         this.date = date;
         this.children = new HashSet<>();
+        this.deth = deth;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class Person implements Comparable<Person> {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", date=" + date +
+                ", deth=" + deth +
                 '}';
     }
 
@@ -65,5 +69,14 @@ public class Person implements Comparable<Person> {
             return this.date.getDayOfYear() - other.date.getDayOfYear();
         }
         return this.date.getYear() - other.date.getYear();
+    }
+
+    public static Person fromCsvLine(String line){
+        String[] elements = line.split(",", -1);
+        String[] name = elements[0].split(" ", 2);
+        LocalDate birth = LocalDate.parse(elements[1], DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        LocalDate deth = LocalDate.parse(elements[2], DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        Person created = new Person(name[0], name[1], birth, deth);
+        return  created;
     }
 }
