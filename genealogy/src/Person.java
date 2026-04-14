@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>, Serializable {
     private Set<Person> children;
     private String name;
     private String surname;
@@ -104,12 +101,44 @@ public class Person implements Comparable<Person> {
                         throw new AmbiguousPersonException(existing);
                     }
                 }
+
+                String[] elements = line.split(",", -1);
+                String parent1 = elements[3];
+                String parent2 = elements[4];
+                for(Person p : personList) {
+                    String fullName = p.name + " " + p.surname;
+                    if(fullName.equals(parent1)) {
+                        p.adopt(parsed);
+                    }
+
+                    if(fullName.equals(parent2)) {
+                        p.adopt(parsed);
+                    }
+                }
                 personList.add(parsed);
             }
         } catch (IOException e) {
             System.out.println("Błąd odczytu: " + e.getMessage());
         }
         return personList;
+    }
+
+    public static void toBinaryFile(String filePath, List<Person> toSave) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(toSave);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<Person> fromBinaryFile(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            List<Person> loaded = (List<Person>)ois.readObject();
+            return loaded;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
 }
